@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MiApp());
+}
+
+class MiApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Formulario Flutter',
+      home: FormularioUsuario(),
+    );
+  }
+}
+
+class FormularioUsuario extends StatefulWidget {
+  @override
+  _FormularioUsuarioState createState() => _FormularioUsuarioState();
+}
+
+class _FormularioUsuarioState extends State<FormularioUsuario> {
+  final _nombreController = TextEditingController();
+  final _edadController = TextEditingController();
+  final _correoController = TextEditingController();
+
+  String _resultado = '';
+
+  void _mostrarDatos() {
+    setState(() {
+      _resultado = 'Nombre: ${_nombreController.text}\n'
+                   'Edad: ${_edadController.text}\n'
+                   'Correo: ${_correoController.text}';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Datos del Usuario')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _nombreController,
+              decoration: InputDecoration(labelText: 'Nombre'),
+            ),
+            TextField(
+              controller: _edadController,
+              decoration: InputDecoration(labelText: 'Edad'),
+              keyboardType: TextInputType.number,
+            ),
+            TextField(
+              controller: _correoController,
+              decoration: InputDecoration(labelText: 'Correo Electrónico'),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _mostrarDatos,
+              child: Text('Mostrar Datos'),
+            ),
+            SizedBox(height: 20),
+            Text(
+              _resultado,
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
